@@ -2,7 +2,7 @@ name: Generate Cypress Report testing
 on:
   push:
     branches:
-      - 'cypress-cont'
+      - 'main'
 
 jobs:
   cypress-run:
