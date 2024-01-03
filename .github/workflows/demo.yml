@@ -23,7 +23,7 @@ jobs:
       - name: Run Cypress tests and generate report
         run: npx cypress run 
       - name: Upload Cypress HTML report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-report
           path: cypress/reports/html
@@ -31,7 +31,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: cypress-report
-          path: .
+          # path: .
       - name: Checking compiled.zip and extracting it
         run: |
           pwd
