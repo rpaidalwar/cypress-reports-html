@@ -28,3 +28,6 @@ jobs:
           retention-days: 30
       - name: Set artifact ID to env variable
         run: echo "ARTIFACT_ID=${{ steps.upload-artifact.outputs.artifact_id }}" >> $GITHUB_ENV
+        
+      - name: Show artifact ID
+        run: echo $ARTIFACT_ID
