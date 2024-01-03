@@ -27,9 +27,19 @@ jobs:
         with:
           name: cypress-report
           path: cypress/reports/html
-
-      - name: Unzip Cypress HTML report
-        run: unzip -o cypress-report/* -d cypress-report-unzipped
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: cypress-execution-report
+          path: .
+      - name: Checking compiled.zip and extracting it
+        run: |
+          pwd
+          ls -la
+          file compiled.zip
+          unzip compiled.zip
+      # - name: Unzip Cypress HTML report
+      #   run: unzip -o cypress-report/* -d cypress-report-unzipped
       # - name: Cypress run
       #   uses: cypress-io/github-action@v6.5.0 # use the explicit version number
       #   with:
