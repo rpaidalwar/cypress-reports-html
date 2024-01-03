@@ -43,6 +43,6 @@ jobs:
       - name: Extract value from logs
         id: extract-value
         run: |
-          # Assuming the logs are multiline and you want to extract the value after "cypress-execution-report (ID: "
-          VALUE=$(echo "${{ steps.download-artifact.outputs.artifact }}" | awk '/cypress-execution-report \(ID:/ {match($0, /cypress-execution-report \(ID: ([0-9]+)/, arr); print arr[1]}')
-          echo "Extracted Value: $VALUE"
+          # Assuming the logs are multiline and you want to extract the value after "ID:"
+          ID=$(echo "${{ steps.download-artifact.outputs.artifact }}" | awk '/ID:/ {match($0, /ID: ([0-9]+)/, arr); print arr[1]}')
+          echo "Extracted ID: $ID"
