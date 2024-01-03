@@ -9,7 +9,7 @@ module.exports = defineConfig({
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: false,
-    reportFilename: Ts-cypress_report
+    reportFilename: "Ts-cypress_report"
   },
   e2e: {
     setupNodeEvents(on, config) {
