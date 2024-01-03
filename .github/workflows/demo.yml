@@ -32,4 +32,5 @@ jobs:
             # Print the raw logs for debugging
             echo "Raw Logs: ${{ github.event_name }} - ${{ job.status }}"
             cat $GITHUB_EVENT_PATH
-
+            # Extract artifact ID from the raw logs
+            artifact_id=$(grep -oP 'Artifact ID: \K\d+' $GITHUB_EVENT_PATH)
