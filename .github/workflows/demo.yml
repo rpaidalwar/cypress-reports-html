@@ -29,6 +29,7 @@ jobs:
       - name: Get artifact ID from logs
         id: get-artifact-id
         run: |
-          # Extract artifact ID from the raw logs
-          artifact_id=$(echo "${{ job.outputs.upload-artifact }}" | grep -oP 'Artifact ID is \K\d+')
+            # Print the raw logs for debugging
+            echo "Raw Logs: ${{ github.event_name }} - ${{ job.status }}"
+            cat $GITHUB_EVENT_PATH
 
