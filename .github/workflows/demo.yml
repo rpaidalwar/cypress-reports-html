@@ -28,9 +28,13 @@ jobs:
           retention-days: 30
       - name: Get artifact ID from logs
         id: get-artifact-id
-        run: |
-            # Print the raw logs for debugging
-            echo "Raw Logs: ${{ github.event_name }} - ${{ job.status }}"
-            cat $GITHUB_EVENT_PATH
-            # Extract artifact ID from the raw logs
-            artifact_id=$(grep -oP 'Artifact ID: \K\d+' $GITHUB_EVENT_PATH)
+run: |
+    # Print the raw logs for debugging
+    echo "Raw Logs: ${{ github.event_name }} - ${{ job.status }}"
+    cat $GITHUB_EVENT_PATH
+
+    # Extract artifact ID from the raw logs
+    artifact_id=$(grep -oP 'Artifact cypress-execution-report.zip successfully finalized. Artifact ID \K\d{10}' $GITHUB_EVENT_PATH)
+
+    # Print the extracted artifact ID for debugging
+    echo "Extracted Artifact ID: $artifact_id"
