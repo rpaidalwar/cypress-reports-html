@@ -25,3 +25,8 @@ jobs:
           name: cypress-execution-report
           path: cypress/reports/html
           retention-days: 30
+      - name: Read Artifact ID
+        run: |
+          # Read the artifact ID from the stored file
+          ARTIFACT_ID=$(cat artifact_id.txt)
+          echo "Retrieved Artifact ID: $ARTIFACT_ID"
