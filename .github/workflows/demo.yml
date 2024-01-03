@@ -25,7 +25,7 @@ jobs:
           command: npx cypress run ui-regression
 
       - name: Generate HTML report
-        run: npx marge --reporter-options "reportDir=cypress/report,reportFilename=cypress-report-${{ env.NOW }}.html"
+        run: npx marge cypress/report/mochawesome.json --reporter-options "reportDir=cypress/report,reportFilename=cypress-report-${{ env.NOW }}.html"
   #     - name: Uploading artifact
   #       id: upload-artifact
   #       uses: actions/upload-artifact@v4
