@@ -27,6 +27,9 @@ jobs:
         with:
           name: cypress-report
           path: cypress/reports/html
+
+      - name: Unzip Cypress HTML report
+        run: unzip -o cypress-report/* -d cypress-report-unzipped
       # - name: Cypress run
       #   uses: cypress-io/github-action@v6.5.0 # use the explicit version number
       #   with:
