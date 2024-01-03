@@ -17,12 +17,15 @@ jobs:
         
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
-  #     - name: Install dependencies
-  #       run: npm install
-  #     - name: Cypress run
-  #       uses: cypress-io/github-action@v6.5.0 # use the explicit version number
-  #       with:
-  #         command: npx cypress run ui-regression
+      - name: Install dependencies
+        run: npm install
+      - name: Cypress run
+        uses: cypress-io/github-action@v6.5.0 # use the explicit version number
+        with:
+          command: npx cypress run ui-regression
+
+      - name: Generate HTML report
+        run: npx marge --reporter-options "reportDir=cypress/report,reportFilename=cypress-report-${{ env.NOW }}.html"
   #     - name: Uploading artifact
   #       id: upload-artifact
   #       uses: actions/upload-artifact@v4
@@ -31,8 +34,8 @@ jobs:
   #         name: cypress-execution-report
   #         path: cypress/reports/html
   #         retention-days: 30
-  #     - name: Save logs to file
-  #       run: echo "Step-specific logs" > step_logs.txt
+  # #     - name: Save logs to file
+  # #       run: echo "Step-specific logs" > step_logs.txt
 
   # read_logs_job:
   #   needs: cypress-run
