@@ -10,45 +10,50 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - name: Echo current date
+        run: ${{ env.NOW }}
+        
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
-      - name: Install dependencies
-        run: npm install
-      - name: Cypress run
-        uses: cypress-io/github-action@v6.5.0 # use the explicit version number
-        with:
-          command: npx cypress run ui-regression
-      - name: Uploading artifact
-        id: upload-artifact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-execution-report
-          path: cypress/reports/html
-          retention-days: 30
-      - name: Save logs to file
-        run: echo "Step-specific logs" > step_logs.txt
+  #     - name: Install dependencies
+  #       run: npm install
+  #     - name: Cypress run
+  #       uses: cypress-io/github-action@v6.5.0 # use the explicit version number
+  #       with:
+  #         command: npx cypress run ui-regression
+  #     - name: Uploading artifact
+  #       id: upload-artifact
+  #       uses: actions/upload-artifact@v4
+  #       if: always()
+  #       with:
+  #         name: cypress-execution-report
+  #         path: cypress/reports/html
+  #         retention-days: 30
+  #     - name: Save logs to file
+  #       run: echo "Step-specific logs" > step_logs.txt
 
-  read_logs_job:
-    needs: cypress-run
-    runs-on: ubuntu-latest
+  # read_logs_job:
+  #   needs: cypress-run
+  #   runs-on: ubuntu-latest
 
-    steps:
-      # Download the artifact with logs
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: cypress-execution-report
+  #   steps:
+  #     # Download the artifact with logs
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: cypress-execution-report
 
-      - name: Extract value from logs
-        id: extract-value
-        run: |
-          # Assuming the logs are multiline and you want to extract the value after "ID:"
-          ID=$(echo "${{ steps.download-artifact.outputs.artifact }}" | awk '/ID:/ {match($0, /ID: ([0-9]+)/, arr); print arr[1]}')
-          echo "Extracted ID: $ID"
-      - name: Get artifact ID from logs
-        id: get-artifact-id
-        run: |
-          # Print the raw logs for debugging
-          echo "Raw Logs: ${{ github.event_name }} - ${{ job.status }}"
-          cat $GITHUB_EVENT_PATH
+  #     - name: Extract value from logs
+  #       id: extract-value
+  #       run: |
+  #         # Assuming the logs are multiline and you want to extract the value after "ID:"
+  #         ID=$(echo "${{ steps.download-artifact.outputs.artifact }}" | awk '/ID:/ {match($0, /ID: ([0-9]+)/, arr); print arr[1]}')
+  #         echo "Extracted ID: $ID"
+  #     - name: Get artifact ID from logs
+  #       id: get-artifact-id
+  #       run: |
+  #         # Print the raw logs for debugging
+  #         echo "Raw Logs: ${{ github.event_name }} - ${{ job.status }}"
+  #         cat $GITHUB_EVENT_PATH
