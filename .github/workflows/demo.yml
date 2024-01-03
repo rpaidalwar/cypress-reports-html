@@ -30,7 +30,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: cypress-report
+          name: Ts-cypress_report.html
           # path: .
       - name: Checking compiled.zip and extracting it
         run: |
