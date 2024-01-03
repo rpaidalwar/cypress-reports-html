@@ -30,14 +30,14 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: cypress-execution-report
+          name: cypress-report
           path: .
       - name: Checking compiled.zip and extracting it
         run: |
           pwd
           ls -la
-          file compiled.zip
-          unzip compiled.zip
+          file cypress-report.zip
+          unzip cypress-report.zip
       # - name: Unzip Cypress HTML report
       #   run: unzip -o cypress-report/* -d cypress-report-unzipped
       # - name: Cypress run
