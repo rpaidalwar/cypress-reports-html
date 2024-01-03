@@ -25,8 +25,12 @@ jobs:
           name: cypress-execution-report
           path: cypress/reports/html
           retention-days: 30
-      - name: Read Artifact ID
+      - name: Extract Artifact ID
         run: |
-          # Read the artifact ID from the stored file
-          ARTIFACT_ID=$(cat artifact_id.txt)
-          echo "Retrieved Artifact ID: $ARTIFACT_ID"
+          # Extracting Artifact ID using regex
+          ARTIFACT_ID=$(echo "$GITHUB_EVENT_PATH" | jq -r '.workflow_run.artifacts[].id')
+
+          # Setting the extracted Artifact ID as an environment variable
+          echo "ARTIFACT_ID=$ARTIFACT_ID" >> $GITHUB_ENV
+
+          echo "Extracted Artifact ID: $ARTIFACT_ID"
