@@ -35,7 +35,7 @@ jobs:
           path: cypress/reports/html
           retention-days: 30
       - name: Unzip HTML report
-        run: unzip cypress-execution-report.zip -d extracted_html_report
+        run: unzip cypress/reports/html/cypress-execution-report -d extracted_html_report
   # #     - name: Save logs to file
   # #       run: echo "Step-specific logs" > step_logs.txt
 
