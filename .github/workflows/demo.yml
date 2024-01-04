@@ -25,6 +25,25 @@ jobs:
         with:
           browser: chrome
 
+      - name: echo values
+        run: |
+          # Get raw logs for a specific workflow run
+          raw_logs=$(curl -s -H "Authorization: Bearer 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" "https://api.github.com/repos/:owner/:repo/actions/runs/:run_id/logs")
+          
+          # Extract values using grep and awk
+          tests=$(echo "$raw_logs" | grep -oP 'Tests\s+\K\d+')
+          passing=$(echo "$raw_logs" | grep -oP 'Passing\s+\K\d+')
+          failing=$(echo "$raw_logs" | grep -oP 'Failing\s+\K\d+')
+          pending=$(echo "$raw_logs" | grep -oP 'Pending\s+\K\d+')
+          skipped=$(echo "$raw_logs" | grep -oP 'Skipped\s+\K\d+')
+          
+          # Print extracted values
+          echo "Tests: $tests"
+          echo "Passing: $passing"
+          echo "Failing: $failing"
+          echo "Pending: $pending"
+          echo "Skipped: $skipped"
+              
       - name: Extract Cypress Summary from HTML
         run: |
           # Replace 'cypress/reports/html/*.html' with the actual path to your HTML file
