@@ -28,7 +28,7 @@ jobs:
       - name: Extract Cypress Summary from HTML
         run: |
           # Replace 'cypress/reports/html/*.html' with the actual path to your HTML file
-          cypress_summary=$(grep -oP '<span class="totalTests">[^<]+' cypress/reports/html/*.html)
+          cypress_summary=$(grep -oP '<span class="totalTests">[^<]+' cypress/reports/html)
           echo "Cypress Summary: $cypress_summary"
 
       - name: Install Nodemailer
@@ -37,7 +37,7 @@ jobs:
       - name: Send Email
         run: |
           # Extract Cypress test summary from the generated report
-          cypress_summary=$(cat cypress/reports/html/*.html | jq -r '.totalTests .passes .failures')
+          cypress_summary=$(cat cypress/reports/html | jq -r '.totalTests .passes .failures')
 
           # Construct email content
           email_content="Cypress Test Summary:
