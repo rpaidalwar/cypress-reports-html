@@ -10,20 +10,38 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-      - name: Set current date as env variable
-        run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-      - name: Echo current date
-        run: echo "${{ env.NOW }}"
+      # - name: Set current date as env variable
+      #   run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      # - name: Echo current date
+      #   run: echo "${{ env.NOW }}"
         
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Install dependencies
         run: npm install
 
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v6.5.0 # use the explicit version number
+      #   with:
+      #     browser: chrome
       - name: Cypress run
-        uses: cypress-io/github-action@v6.5.0 # use the explicit version number
+        uses: cypress-io/github-action@v6.5.0
         with:
           browser: chrome
+
+      - name: Set current date as env variable
+        run: echo "timestamp=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - name: Echo current date
+        run: echo $timestamp
+       
+      - name: upload artifact
+        id: upload-artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Talentsavvy-Cypress-Test-Report-$timestamp
+          path: cypress/reports/html
+          retention-days: 30
 
       - name: echo values
         run: |
