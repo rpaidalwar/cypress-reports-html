@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Talentsavvy-Cypress-Test-Report-$timestamp
+          name: Talentsavvy-Cypress-Test-Report-${{ env.timestamp }}
           path: cypress/reports/html
           retention-days: 30
 
