@@ -64,7 +64,7 @@ jobs:
               - **Run Time:** $NOW
               - Click on the link to download the report from GitHub.
               # Check the [Cypress Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-              file: 'cypress/reports/html/Ts-cypress_report.html'
+            sections: 'cypress/reports/html/Ts-cypress_report.html'
       # - name: Download Cypress artifacts
       #   uses: actions/download-artifact@v4
       #   with:
