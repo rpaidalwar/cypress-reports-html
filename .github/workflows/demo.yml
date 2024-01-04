@@ -32,36 +32,47 @@ jobs:
           name: cypress-execution-report
           path: cypress/reports/html
           retention-days: 30
-          
-  Send-Email:
-      runs-on: ubuntu-latest
-      needs: cypress-run
-      if: always()
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4.1.1
+      - name: Download Cypress artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: cypress-execution-report
+          path: cypress/reports/html/*
+
+      # - name: Uploading artifact
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: Ts-cypress_report
+      #     path: cypress/reports/html/* 
+  # Send-Email:
+  #     runs-on: ubuntu-latest
+  #     needs: cypress-run
+  #     if: always()
+  #     steps:
+  #       - name: Checkout
+  #         uses: actions/checkout@v4.1.1
   
-        - name: Download Cypress artifacts
-          uses: actions/download-artifact@v4
-          with:
-            name: cypress-execution-report
-            path: cypress/reports/html
+  #       - name: Download Cypress artifacts
+  #         uses: actions/download-artifact@v4
+  #         with:
+  #           name: cypress-execution-report
+  #           path: cypress/reports/html
   
-        - name: Send email with Cypress artifacts
-          uses: dawidd6/action-send-mail@v3.9.0
-          with:
-            server_address: smtp-mail.outlook.com
-            server_port: 587
-            username: rajat@talentsavvy.com
-            password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
-            subject: "Cypress test results for ${{ github.repository }}"
-            body: |
-              New Cypress Report Available!
-              - **GitHub Run Number:** ${{ github.run_number }}
-              - **Commit SHA:** ${{ github.sha }}
-              - **Triggered by:** ${{ github.actor }}
-              "Please find the attached Cypress test report."
-            from: rajat@talentsavvy.com
-            to: rajat@talentsavvy.com
-            attachments: |
-              cypress/reports/html/*
+  #       - name: Send email with Cypress artifacts
+  #         uses: dawidd6/action-send-mail@v3.9.0
+  #         with:
+  #           server_address: smtp-mail.outlook.com
+  #           server_port: 587
+  #           username: rajat@talentsavvy.com
+  #           password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
+  #           subject: "Cypress test results for ${{ github.repository }}"
+  #           body: |
+  #             New Cypress Report Available!
+  #             - **GitHub Run Number:** ${{ github.run_number }}
+  #             - **Commit SHA:** ${{ github.sha }}
+  #             - **Triggered by:** ${{ github.actor }}
+  #             "Please find the attached Cypress test report."
+  #           from: rajat@talentsavvy.com
+  #           to: rajat@talentsavvy.com
+  #           attachments: |
+  #             cypress/reports/html/*
