@@ -31,7 +31,7 @@ jobs:
       - name: Send Email
         run: |
           # Extract Cypress test summary from the generated report
-          cypress_summary=$(cat cypress/reports/html/.jsons | jq -r '.totalTests .passes .failures')
+          cypress_summary=$(cat cypress/reports/html/*.html | jq -r '.totalTests .passes .failures')
 
           # Construct email content
           email_content="Cypress Test Summary:
