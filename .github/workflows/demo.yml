@@ -33,7 +33,7 @@ jobs:
           browser: chrome
 
       - name: Set current date as env variable
-        run: echo "timestamp=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+        run: echo "timestamp=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: Echo current date
         run: echo $timestamp
        
