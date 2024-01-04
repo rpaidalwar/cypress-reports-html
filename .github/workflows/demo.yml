@@ -111,6 +111,6 @@ jobs:
               - **Triggered by:** ${{ github.actor }}
               "Please find the attached Cypress test report."
             from: rajat@talentsavvy.com
-            to: ${{ steps.read_recipients.outputs.email_recipients }}
+            to: ${{ vars.EMAIL_RECIPIENTS }}
             attachments: |
               cypress/reports/html/*
