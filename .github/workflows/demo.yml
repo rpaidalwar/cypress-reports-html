@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Talentsavvy-Cypress-Test-Report-${{ env.timestamp }}
+          name: Talentsavvy-Cypress-Test-${{ env.timestamp }}
           path: cypress/reports/html
           retention-days: 30
        
@@ -54,7 +54,7 @@ jobs:
         - name: Download artifact
           uses: actions/download-artifact@v4
           with:
-            name: Talentsavvy-Cypress-Test-Report-${{ env.timestamp }}
+            name: Talentsavvy-Cypress-Test-${{ env.timestamp }}
             path: cypress/reports/html
           
         - name: Send Cypress Report link to Teams
@@ -79,7 +79,7 @@ jobs:
         - name: Download Cypress artifacts
           uses: actions/download-artifact@v4
           with:
-            name: Talentsavvy-Cypress-Test-Report-${{ env.timestamp }}
+            name: Talentsavvy-Cypress-Test-${{ env.timestamp }}
             path: cypress/reports/html
 
         - name: Send email with Cypress report
