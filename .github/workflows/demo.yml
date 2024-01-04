@@ -51,20 +51,25 @@ jobs:
           run: |
             echo "Current directory: $(pwd)"
             echo "Contents of cypress/reports/html: $(ls cypress/reports/html)"
+
+        - name: Read email recipients from file
+          id: read_recipients
+          run: |
+            echo "::set-output name=email_recipients::$(cat email_recipients.txt | tr '\n' ',')"
   
-        - name: Send Cypress Report to Teams
-          uses: simbo/msteams-message-card-action@latest
-          with:
-            webhook: ${{ secrets.CYPRESS_TEAMS_WEBHOOK }}
-            message: |
-              New Cypress Report Available!
-              - **GitHub Run Number:** ${{ github.run_number }}
-              - **Commit SHA:** ${{ github.sha }}
-              - **Triggered by:** ${{ github.actor }}
-              - **Run Time:** $NOW
-              - Click on the link to download the report from GitHub.
-              # Check the [Cypress Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            sections: 'cypress/reports/html/Ts-cypress_report.html'
+        # - name: Send Cypress Report to Teams
+        #   uses: simbo/msteams-message-card-action@latest
+        #   with:
+        #     webhook: ${{ secrets.CYPRESS_TEAMS_WEBHOOK }}
+        #     message: |
+        #       New Cypress Report Available!
+        #       - **GitHub Run Number:** ${{ github.run_number }}
+        #       - **Commit SHA:** ${{ github.sha }}
+        #       - **Triggered by:** ${{ github.actor }}
+        #       - **Run Time:** $NOW
+        #       - Click on the link to download the report from GitHub.
+        #       # Check the [Cypress Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+        #     sections: 'cypress/reports/html/Ts-cypress_report.html'
       # - name: Download Cypress artifacts
       #   uses: actions/download-artifact@v4
       #   with:
@@ -91,21 +96,21 @@ jobs:
   #           name: cypress-execution-report
   #           path: cypress/reports/html
   
-  #       - name: Send email with Cypress artifacts
-  #         uses: dawidd6/action-send-mail@v3.9.0
-  #         with:
-  #           server_address: smtp-mail.outlook.com
-  #           server_port: 587
-  #           username: rajat@talentsavvy.com
-  #           password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
-  #           subject: "Cypress test results for ${{ github.repository }}"
-  #           body: |
-  #             New Cypress Report Available!
-  #             - **GitHub Run Number:** ${{ github.run_number }}
-  #             - **Commit SHA:** ${{ github.sha }}
-  #             - **Triggered by:** ${{ github.actor }}
-  #             "Please find the attached Cypress test report."
-  #           from: rajat@talentsavvy.com
-  #           to: rajat@talentsavvy.com
-  #           attachments: |
-  #             cypress/reports/html/*
+        - name: Send email with Cypress artifacts
+          uses: dawidd6/action-send-mail@v3.9.0
+          with:
+            server_address: smtp-mail.outlook.com
+            server_port: 587
+            username: rajat@talentsavvy.com
+            password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
+            subject: "Cypress test results for ${{ github.repository }}"
+            body: |
+              New Cypress Report Available!
+              - **GitHub Run Number:** ${{ github.run_number }}
+              - **Commit SHA:** ${{ github.sha }}
+              - **Triggered by:** ${{ github.actor }}
+              "Please find the attached Cypress test report."
+            from: rajat@talentsavvy.com
+            to: ${{ steps.read_recipients.outputs.email_recipients }}
+            attachments: |
+              cypress/reports/html/*
