@@ -28,7 +28,7 @@ jobs:
       - name: echo values
         run: |
           # Get raw logs for a specific workflow run
-          raw_logs=$(curl -s -H "Authorization: Bearer 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" "https://api.github.com/repos/:owner/:repo/actions/runs/:run_id/logs")
+          raw_logs=$(curl -s -H "Authorization: Bearer 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" "https://api.github.com/repos/rpaidalwar/cypress-reports-html/actions/runs/${{ github.run_id }}/logs")
           
           # Extract values using grep and awk
           tests=$(echo "$raw_logs" | grep -oP 'Tests\s+\K\d+')
