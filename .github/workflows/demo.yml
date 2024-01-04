@@ -25,6 +25,12 @@ jobs:
         with:
           browser: chrome
 
+      - name: Extract Cypress Summary from HTML
+        run: |
+          # Replace 'cypress/reports/html/*.html' with the actual path to your HTML file
+          cypress_summary=$(grep -oP '<span class="totalTests">[^<]+' cypress/reports/html/*.html)
+          echo "Cypress Summary: $cypress_summary"
+
       - name: Install Nodemailer
         run: npm install nodemailer
 
