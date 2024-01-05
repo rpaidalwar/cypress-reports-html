@@ -77,7 +77,7 @@ jobs:
               <html>
                <body>
                <h2>Cypress Test Report</h2>
-               $report_content <!-- Use HTML content directly -->
+               $(cat cypress/reports/html/Ts-cypress_report.html)
                </body>
                </html>
             attachments: |
