@@ -15,6 +15,7 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     env:
+      CYPRESS_REPORT_CONTENT: ''
       timestamp: ''
       cypress_username_admin: ${{ vars.cypress_username_admin }}
       cypress_password_admin: ${{ vars.cypress_password_admin }}
@@ -57,9 +58,12 @@ jobs:
         run: |
           # Read HTML content from the generated file
           report_content=$(cat cypress/reports/html/Ts-cypress_report.html)
-          echo “::set-output name=content::$report_content”
+          # echo “::set-output name=content::$report_content”
+          echo "CYPRESS_REPORT_CONTENT=$report_content" >> $GITHUB_ENV
 
-
+      - name: Echo current date
+        run: echo $CYPRESS_REPORT_CONTENT
+        
       - name: List content of the directory
         run: ls -al cypress/reports/html
       
