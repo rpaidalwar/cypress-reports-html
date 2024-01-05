@@ -59,9 +59,11 @@ jobs:
           # Read HTML content from the generated file
           report_content=$(cat cypress/reports/html/Ts-cypress_report.html)
           echo “::set-output name=content::$report_content”
-          echo "CYPRESS_REPORT_CONTENT=$report_content" >> $GITHUB_ENV
 
-      - name: Echo current date
+      - name: echo env variable
+        run: echo "CYPRESS_REPORT_CONTENT=$report_content" >> $GITHUB_ENV
+
+      - name: Echo content
         run: echo $CYPRESS_REPORT_CONTENT
         
       - name: List content of the directory
