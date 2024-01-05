@@ -65,7 +65,7 @@ jobs:
               - **Commit SHA:** ${{ github.sha }}
               - **Triggered by:** ${{ github.actor }}
               "Please find the attached Cypress test report."
-            html_body: file://readme.html
+            html_body: ${{steps.read-html}}
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
             attachments: |
