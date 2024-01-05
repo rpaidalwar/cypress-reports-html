@@ -80,7 +80,7 @@ jobs:
         with:
             server_address: smtp-mail.outlook.com
             server_port: 587
-            username: ${{ secrets.CYPRESS_SMTP_USERNAME }}
+            username: rajat@talentsavvy.com
             password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
             subject: "Cypress test results for ${{ github.repository }}"
             body: |
