@@ -1,12 +1,13 @@
 name: Generate Cypress Report
 on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Cypress test'
-        default: 'run'
-        required: true
-        type: string
+  push
+  # workflow_dispatch:
+  #   inputs:
+  #     name:
+  #       description: 'Cypress test'
+  #       default: 'run'
+  #       required: true
+  #       type: string
   # schedule:
   #   - cron: '30 16 * * 1-5'
  
@@ -73,7 +74,7 @@ jobs:
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
             content-type: text/html
-            html_body: file://cypress/reports/html/Ts-cypress_report.html
+            html_body: file:/home/runner/work/cypress-reports-html/cypress-reports-html/cypress/reports/html/Ts-cypress_report.html
             attachments: |
               cypress/reports/html/*
           
