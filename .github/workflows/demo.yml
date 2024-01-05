@@ -70,14 +70,16 @@ jobs:
             username: rajat@talentsavvy.com
             password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
             subject: "Cypress test results for ${{ github.repository }}"
-            body: |
-              ${{ steps.read-report.outputs.report_content }}
-
-              
-            # html_body: "$(cat cypress/reports/html/Ts-cypress_report.html)"
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
             content-type: text/html
+            body: |
+              <html>
+               <body>
+               <h2>Cypress Test Report</h2>
+               $report_content <!-- Use HTML content directly -->
+               </body>
+               </html>
             attachments: |
               cypress/reports/html/*
           
