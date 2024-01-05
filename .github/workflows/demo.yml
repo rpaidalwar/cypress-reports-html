@@ -90,8 +90,8 @@ jobs:
               - **Triggered by:** ${{ github.actor }}
               "Please find the attached Cypress test report."
               $(cat cypress/reports/html/Ts-cypress_report.html)
-            from: ${{ secrets.CYPRESS_SMTP_USERNAME }}
-            to: ${{ vars.CYPRESS_EMAIL_RECIPIENTS }}
+            from: rajat@talentsavvy.com
+            to: rajat@talentsavvy.com
             attachments: |
               cypress/reports/html/*
           
