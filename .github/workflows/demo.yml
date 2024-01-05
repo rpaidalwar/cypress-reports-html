@@ -36,10 +36,19 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run -- --reporter json
 
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Talentsavvy-Cypress-Test-${{ env.timestamp }}
+          path: cypress/reports/json
+
+      - name: List content of the directory
+        run: ls -al cypress/reports/json
+
       - name: Parse Cypress results
         run: |
-          # Assuming your Cypress JSON report is located at cypress/report/..json
-          RESULTS=$(jq -r '.stats' cypress/report/.json)
+          # Assuming your Cypress JSON report is located at cypress/reports/json/.json
+          RESULTS=$(jq -r '.stats' cypress/reports/json/*.json)
       
           # Extract individual results
           PASSED=$(echo $RESULTS | jq -r '.passes')
