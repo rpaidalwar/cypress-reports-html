@@ -75,7 +75,7 @@ jobs:
               <body>
               <h2>Cypress Test Report</h2>
               <p>Here is the Cypress Test Report:</p>
-              <p>${{ steps.read-report.outputs.content }}</p> <!-- Embed report content here -->
+              <p>::set-output name=content::$report_content</p> <!-- Embed report content here -->
               </body>
               </html>
               
