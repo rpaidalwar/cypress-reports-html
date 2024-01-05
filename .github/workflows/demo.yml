@@ -50,6 +50,15 @@ jobs:
         id: read-html
         run: |
           echo "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: send mail
+        run: |
+          echo "HTML content: ${{ steps.read-html.outputs.html_content }}" > email-body.txt  
+          mail -s "HTML Content Email" -r rajat@talentsavvy.com rajat@talentsavvy.com < email-body.txt
        
   # send-to-teams:
   #     runs-on: ubuntu-latest
