@@ -61,7 +61,7 @@ jobs:
           echo “::set-output name=content::$report_content”
 
       - name: echo env variable
-        run: echo "CYPRESS_REPORT_CONTENT=$report_content" >> $GITHUB_ENV
+        run: echo "CYPRESS_REPORT_CONTENT=::set-output name=content::$report_content" >> $GITHUB_ENV
 
       - name: Echo content
         run: echo $CYPRESS_REPORT_CONTENT
@@ -96,7 +96,7 @@ jobs:
             <html>
             <body>
               <h2>Cypress Test Report</h2>
-              ${{cat cypress/reports/html/Ts-cypress_report.html}} <!-- Use HTML content directly -->
+              $(cat cypress/reports/html/Ts-cypress_report.html) <!-- Use HTML content directly -->
             </body>
             </html>
 
