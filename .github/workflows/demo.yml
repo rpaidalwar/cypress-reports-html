@@ -69,18 +69,31 @@ jobs:
       - name: List content of the directory
         run: ls -al cypress/reports/html
       
-      - name: Send email with Cypress artifacts
-        uses: dawidd6/action-send-mail@v3.9.0
+      # - name: Send email with Cypress artifacts
+      #   uses: dawidd6/action-send-mail@v3.9.0
+      #   with:
+      #       server_address: smtp-mail.outlook.com
+      #       server_port: 587
+      #       username: rajat@talentsavvy.com
+      #       password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
+      #       subject: "Cypress test results for ${{ github.repository }}"
+      #       from: rajat@talentsavvy.com
+      #       to: rajat@talentsavvy.com
+      #       content-type: text/html
+      #       html_body: "file://readme.html"
+      #       attachments: |
+      #         cypress/reports/html/*
+
+      - name: Send Build Email
+        uses: juanformoso/action-send-mail@1
         with:
-            server_address: smtp-mail.outlook.com
-            server_port: 587
-            username: rajat@talentsavvy.com
-            password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
-            subject: "Cypress test results for ${{ github.repository }}"
-            from: rajat@talentsavvy.com
-            to: rajat@talentsavvy.com
-            content-type: text/html
-            html_body: "file://readme.html"
-            attachments: |
-              cypress/reports/html/*
-          
+          server_address: smtp.sendgrid.net
+          server_port: 587
+          username: rajat@talentsavvy.com
+          password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
+          subject: "Cypress test results for ${{ github.repository }}"
+          body: "file://readme.html"
+          to: rajat@talentsavvy.com
+          from: rajat@talentsavvy.com
+          content_type: text/html
+
