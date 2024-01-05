@@ -96,7 +96,7 @@ jobs:
             <html>
             <body>
               <h2>Cypress Test Report</h2>
-              $report_content <!-- Use HTML content directly -->
+              ${{ env.timestamp }} <!-- Use HTML content directly -->
             </body>
             </html>
 
