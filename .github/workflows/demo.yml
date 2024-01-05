@@ -87,7 +87,7 @@ jobs:
       - name: Send Build Email
         uses: juanformoso/action-send-mail@1
         with:
-          server_address: smtp.sendgrid.net
+          server_address: smtp-mail.outlook.com
           server_port: 587
           username: rajat@talentsavvy.com
           password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
