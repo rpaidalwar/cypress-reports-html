@@ -65,7 +65,7 @@ jobs:
               - **Commit SHA:** ${{ github.sha }}
               - **Triggered by:** ${{ github.actor }}
               "Please find the attached Cypress test report."
-              "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
+            html_body: "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
             attachments: |
