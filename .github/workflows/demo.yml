@@ -62,12 +62,13 @@ jobs:
       - name: echo report
         run: |
           echo "report=$report_content" >> $GITHUB_ENV
+      - name: Echo content
+        run: echo $report
 
       - name: echo env variable
         run: echo "CYPRESS_REPORT_CONTENT=::set-output name=content::$report_content" >> $GITHUB_ENV
 
-      - name: Echo content
-        run: echo $CYPRESS_REPORT_CONTENT
+      
         
       - name: List content of the directory
         run: ls -al cypress/reports/html
