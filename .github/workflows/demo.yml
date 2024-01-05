@@ -73,13 +73,7 @@ jobs:
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
             content-type: text/html
-            body: |
-              <html>
-               <body>
-               <h2>Cypress Test Report</h2>
-               $(cat cypress/reports/html/Ts-cypress_report.html)
-               </body>
-               </html>
+            html_body: file://cypress/reports/html/Ts-cypress_report.html
             attachments: |
               cypress/reports/html/*
           
