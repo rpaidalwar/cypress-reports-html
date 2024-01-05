@@ -74,7 +74,7 @@ jobs:
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
             content-type: text/html
-            html_body: file:/home/runner/work/cypress-reports-html/cypress-reports-html/cypress/reports/html/Ts-cypress_report.html
+            html_body: file://home/runner/work/cypress-reports-html/cypress-reports-html/cypress/reports/html/Ts-cypress_report.html
             attachments: |
               cypress/reports/html/*
           
