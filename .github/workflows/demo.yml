@@ -79,9 +79,10 @@ jobs:
               </body>
               </html>
               
-            html_body: "$(cat cypress/reports/html/Ts-cypress_report.html)"
+            # html_body: "$(cat cypress/reports/html/Ts-cypress_report.html)"
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
+            content-type: text/html
             attachments: |
               cypress/reports/html/*
           
