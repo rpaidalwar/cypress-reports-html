@@ -71,7 +71,7 @@ jobs:
             password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
             subject: "Cypress test results for ${{ github.repository }}"
             body: |
-              ${{ steps.read-report.outputs.content }} <!-- Embed report content here -->
+              ${{ steps.read-report.outputs.content }} <!-- $report_content -->
               New Cypress Report Available!
               - **GitHub Run Number:** ${{ github.run_number }}
               - **Commit SHA:** ${{ github.sha }}
