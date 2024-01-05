@@ -46,10 +46,18 @@ jobs:
           path: cypress/reports/html
           retention-days: 30
 
-      - name: Read HTML content
-        id: read-html
+      # - name: Read HTML content
+      #   id: read-html
+      #   run: |
+      #     echo "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
+
+      - name: Read Cypress report content
+        id: read-report
         run: |
-          echo "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
+          # Read HTML content from the generated file
+          report_content=$(cat cypress/reports/html/Ts-cypress_report.html)
+          echo “::set-output name=content::$report_content”
+
 
       - name: List content of the directory
         run: ls -al cypress/reports/html
@@ -63,6 +71,7 @@ jobs:
             password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
             subject: "Cypress test results for ${{ github.repository }}"
             body: |
+              ${{ steps.read-report.outputs.content }} <!-- Embed report content here -->
               New Cypress Report Available!
               - **GitHub Run Number:** ${{ github.run_number }}
               - **Commit SHA:** ${{ github.sha }}
