@@ -96,7 +96,7 @@ jobs:
             <html>
             <body>
               <h2>Cypress Test Report</h2>
-              hello world <!-- Use HTML content directly -->
+              $report_content <!-- Use HTML content directly -->
             </body>
             </html>
 
