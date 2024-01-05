@@ -51,30 +51,6 @@ jobs:
         run: |
           echo "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
       
-
-       
-  # send-to-teams:
-  #     runs-on: ubuntu-latest
-  #     needs: cypress-run
-  #     if: always()
-  #     steps:
-  #       - name: Download artifact
-  #         uses: actions/download-artifact@v4
-  #         with:
-  #           name: Talentsavvy-Cypress-Test-${{ env.timestamp }}
-  #           path: cypress/reports/html
-          
-  #       - name: Send Cypress Report link to Teams
-  #         uses: simbo/msteams-message-card-action@latest
-  #         with:
-  #           webhook: ${{ secrets.CYPRESS_TEAMS_WEBHOOK }}
-  #           message: |
-  #             New Cypress Report Available!
-  #             - **GitHub Run Number:** ${{ github.run_number }}
-  #             - **Commit SHA:** ${{ github.sha }}
-  #             - **Triggered by:** ${{ github.actor }}
-  #             - Click on the link to download the report from GitHub.
-  #             Check the [Cypress Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
       - name: Send email with Cypress artifacts
         uses: dawidd6/action-send-mail@v3.9.0
         with:
@@ -89,7 +65,7 @@ jobs:
               - **Commit SHA:** ${{ github.sha }}
               - **Triggered by:** ${{ github.actor }}
               "Please find the attached Cypress test report."
-            run: echo "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
+              "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
             attachments: |
