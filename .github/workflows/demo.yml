@@ -56,7 +56,7 @@ jobs:
         run: |
           # Read HTML content from the generated file
           report_content=$(cat cypress/reports/html/Ts-cypress_report.html)
-          echo “::set-output name=content::$report_content”
+          echo “$report_content”
 
 
       - name: List content of the directory
