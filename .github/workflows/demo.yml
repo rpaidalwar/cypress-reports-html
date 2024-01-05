@@ -50,6 +50,9 @@ jobs:
         id: read-html
         run: |
           echo "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
+
+      - name: List content of the directory
+        run: ls -al cypress/reports/html
       
       - name: Send email with Cypress artifacts
         uses: dawidd6/action-send-mail@v3.9.0
@@ -65,7 +68,7 @@ jobs:
               - **Commit SHA:** ${{ github.sha }}
               - **Triggered by:** ${{ github.actor }}
               "Please find the attached Cypress test report."
-            html_body: ${{steps.read-html.outputs.html_content}}
+            html_body: "$(cat cypress/reports/html/Ts-cypress_report.html)"
             from: rajat@talentsavvy.com
             to: rajat@talentsavvy.com
             attachments: |
