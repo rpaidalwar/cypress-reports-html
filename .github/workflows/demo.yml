@@ -55,7 +55,7 @@ jobs:
           destination-repository: 'git@github.com:rpaidalwar/html.git'
           destination-directory: '.'
           commit-email: 'rpaidalwar2@gmail.com'
-    
+          destination-branch: main
       # - name: Commit and Push to Repository B
       #   run: |
       #     cp cypress/reports/html/Ts-cypress_report.html $GITHUB_WORKSPACE/Ts-cypress_report.html
