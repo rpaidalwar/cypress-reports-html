@@ -61,8 +61,8 @@ jobs:
           cp cypress/reports/html/Ts-cypress_report.html $GITHUB_WORKSPACE/Ts-cypress_report.html
           git add Ts-cypress_report.html
           git commit -m "Update HTML file"
-          git remote add origin_with_token https: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@github.com/rpaidalwar/html.git
-          git push origin_with_token HEAD:main
+          git remote add origin https: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@github.com/rpaidalwar/html.git
+          git push origin HEAD:main
       # - name: Parse Cypress results
       #   run: |
       #     # Assuming your Cypress JSON report is located at cypress/reports/json/.json
