@@ -40,97 +40,102 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Talentsavvy-Cypress-Test-${{ env.timestamp }}
-          path: cypress/reports/json
+          path: cypress/reports/html
 
       - name: List content of the directory
-        run: ls -al cypress/reports/json
+        run: ls -al cypress/reports/html
 
-      - name: Parse Cypress results
+      - name: Set up Git
         run: |
-          # Assuming your Cypress JSON report is located at cypress/reports/json/.json
-          RESULTS=$(jq -r '.stats' cypress/reports/json/*.json)
+          git config --global user.name rpaidalwar
+          git config --global user.email "${{ secrets.REPO_B_EMAIL }}" 
+
+      # - name: Parse Cypress results
+      #   run: |
+      #     # Assuming your Cypress JSON report is located at cypress/reports/json/.json
+      #     RESULTS=$(jq -r '.stats' cypress/reports/json/*.json)
       
-          # Extract individual results
-          PASSED=$(echo $RESULTS | jq -r '.passes')
-          FAILED=$(echo $RESULTS | jq -r '.failures')
-          PENDING=$(echo $RESULTS | jq -r '.pending')
-          SKIPPED=$(echo $RESULTS | jq -r '.skipped')
-          DURATION=$(echo $RESULTS | jq -r '.duration')
+      #     # Extract individual results
+      #     PASSED=$(echo $RESULTS | jq -r '.passes')
+      #     FAILED=$(echo $RESULTS | jq -r '.failures')
+      #     PENDING=$(echo $RESULTS | jq -r '.pending')
+      #     SKIPPED=$(echo $RESULTS | jq -r '.skipped')
+      #     DURATION=$(echo $RESULTS | jq -r '.duration')
       
-          echo "Cypress Results:"
-          echo "Result   Passed ✅   Failed ❌   Pending ✋   Skipped ↩️   Duration 🕗"
-          echo "Passing  ✅          $PASSED     $FAILED     $PENDING     $SKIPPED      $DURATION"
-        shell: bash
+      #     echo "Cypress Results:"
+      #     echo "Result   Passed ✅   Failed ❌   Pending ✋   Skipped ↩️   Duration 🕗"
+      #     echo "Passing  ✅          $PASSED     $FAILED     $PENDING     $SKIPPED      $DURATION"
+      #   shell: bash
   
-      - name: Set current date as env variable
-        run: echo "timestamp=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-      - name: Echo current date
-        run: echo $timestamp
+      # - name: Set current date as env variable
+      #   run: echo "timestamp=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      # - name: Echo current date
+      #   run: echo $timestamp
        
-      - name: upload artifact
-        id: upload-artifact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: Talentsavvy-Cypress-Test-${{ env.timestamp }}
-          path: cypress/reports/html
-          retention-days: 30
+      # - name: upload artifact
+      #   id: upload-artifact
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: Talentsavvy-Cypress-Test-${{ env.timestamp }}
+      #     path: cypress/reports/html
+      #     retention-days: 30
 
-      # - name: Read HTML content
-      #   id: read-html
-      #   run: |
-      #     echo "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
+      # # - name: Read HTML content
+      # #   id: read-html
+      # #   run: |
+      # #     echo "::set-output name=html_content::$(cat cypress/reports/html/Ts-cypress_report.html)"
 
-      # - name: Read Cypress report content
-      #   id: read-report
-      #   run: |
-      #     # Read HTML content from the generated file
-      #     report_content=$(cat cypress/reports/html/Ts-cypress_report.html)
-      #     echo “::set-output name=content::$report_content”
-      # - name: echo report
-      #   run: |
-      #     echo "report=$report_content" >> $GITHUB_ENV
-      # - name: Echo content
-      #   run: echo $report
+      # # - name: Read Cypress report content
+      # #   id: read-report
+      # #   run: |
+      # #     # Read HTML content from the generated file
+      # #     report_content=$(cat cypress/reports/html/Ts-cypress_report.html)
+      # #     echo “::set-output name=content::$report_content”
+      # # - name: echo report
+      # #   run: |
+      # #     echo "report=$report_content" >> $GITHUB_ENV
+      # # - name: Echo content
+      # #   run: echo $report
 
-      # - name: echo env variable
-      #   run: echo "CYPRESS_REPORT_CONTENT=::set-output name=content::$report_content" >> $GITHUB_ENV
+      # # - name: echo env variable
+      # #   run: echo "CYPRESS_REPORT_CONTENT=::set-output name=content::$report_content" >> $GITHUB_ENV
 
       
         
-      - name: List content of the directory
-        run: ls -al cypress/reports/html
+      # - name: List content of the directory
+      #   run: ls -al cypress/reports/html
       
-      # - name: Send email with Cypress artifacts
-      #   uses: dawidd6/action-send-mail@v3.9.0
+      # # - name: Send email with Cypress artifacts
+      # #   uses: dawidd6/action-send-mail@v3.9.0
+      # #   with:
+      # #       server_address: smtp-mail.outlook.com
+      # #       server_port: 587
+      # #       username: rajat@talentsavvy.com
+      # #       password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
+      # #       subject: "Cypress test results for ${{ github.repository }}"
+      # #       from: rajat@talentsavvy.com
+      # #       to: rajat@talentsavvy.com
+      # #       content-type: text/html
+      # #       html_body: "file://readme.html"
+      # #       attachments: |
+      # #         cypress/reports/html/*
+
+      # - name: Send Build Email
+      #   uses: juanformoso/action-send-mail@1
       #   with:
-      #       server_address: smtp-mail.outlook.com
-      #       server_port: 587
-      #       username: rajat@talentsavvy.com
-      #       password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
-      #       subject: "Cypress test results for ${{ github.repository }}"
-      #       from: rajat@talentsavvy.com
-      #       to: rajat@talentsavvy.com
-      #       content-type: text/html
-      #       html_body: "file://readme.html"
-      #       attachments: |
-      #         cypress/reports/html/*
+      #     server_address: smtp-mail.outlook.com
+      #     server_port: 587
+      #     username: rajat@talentsavvy.com
+      #     password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
+      #     subject: "Cypress test results for ${{ github.repository }}"
+      #     body: |
+      #       Cypress Test Results:
 
-      - name: Send Build Email
-        uses: juanformoso/action-send-mail@1
-        with:
-          server_address: smtp-mail.outlook.com
-          server_port: 587
-          username: rajat@talentsavvy.com
-          password: ${{ secrets.CYPRESS_SMTP_PASSWORD }}
-          subject: "Cypress test results for ${{ github.repository }}"
-          body: |
-            Cypress Test Results:
+      #       Result   Passed ✅   Failed ❌   Pending ✋   Skipped ↩️   Duration 🕗
+      #       Passing  ✅          $PASSED     $FAILED     $PENDING     $SKIPPED      $DURATION
 
-            Result   Passed ✅   Failed ❌   Pending ✋   Skipped ↩️   Duration 🕗
-            Passing  ✅          $PASSED     $FAILED     $PENDING     $SKIPPED      $DURATION
-
-          to: rajat@talentsavvy.com
-          from: rajat@talentsavvy.com
-          content_type: text/html
+      #     to: rajat@talentsavvy.com
+      #     from: rajat@talentsavvy.com
+      #     content_type: text/html
 
