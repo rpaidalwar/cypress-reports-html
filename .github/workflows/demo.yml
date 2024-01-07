@@ -45,6 +45,19 @@ jobs:
       - name: List content of the directory
         run: ls -al cypress/reports/html
 
+      - name: Checkout Source Repository
+        uses: actions/checkout@v2
+        with:
+          repository: rpaidalwar/cypress-reports-html
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Setup SSH Key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: Set up Git
         run: |
           git config --global user.name rpaidalwar
