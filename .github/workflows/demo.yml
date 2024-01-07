@@ -45,17 +45,21 @@ jobs:
       - name: List content of the directory
         run: ls -al cypress/reports/html
 
-      - name: Push generated webpage to another repository
-        uses: nkoppel/push-files-to-another-repository@v1.1.2
+
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Pushes test file
+        uses: dmnemec/copy_file_to_another_repo_action@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-files: 'cypress/reports/html/Ts-cypress_report.html'
-          destination-username: 'rpaidalwar'
-          destination-repository: 'git@github.com:rpaidalwar/html.git'
-          destination-directory: '.'
-          commit-email: 'rpaidalwar2@gmail.com'
-          destination-branch: main
+          source_file: 'cypress/reports/html/Ts-cypress_report.html'
+          destination_repo: 'rpaidalwar/html'
+          destination_folder: '.'
+          user_email: 'example@email.com'
+          user_name: 'dmnemec'
+          commit_message: 'A custom message for the commit'
       # - name: Commit and Push to Repository B
       #   run: |
       #     cp cypress/reports/html/Ts-cypress_report.html $GITHUB_WORKSPACE/Ts-cypress_report.html
