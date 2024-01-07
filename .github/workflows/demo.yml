@@ -52,7 +52,7 @@ jobs:
         with:
           source-files: 'cypress/reports/html/Ts-cypress_report.html'
           destination-username: 'rpaidalwar'
-          destination-repository: 'https://github.com/rpaidalwar/html.git'
+          destination-repository: 'git@github.com:rpaidalwar/html.git'
           destination-directory: '.'
           commit-email: 'rpaidalwar2@gmail.com'
     
