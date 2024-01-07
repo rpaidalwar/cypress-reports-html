@@ -45,10 +45,9 @@ jobs:
       - name: List content of the directory
         run: ls -al cypress/reports/html
 
-
-      - name: Checkout
-        uses: actions/checkout@v2
-  
+      - name: Permission to the directory
+        run: chmod -R 777 cypress/reports/html
+        
       - name: Pushes test file
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
