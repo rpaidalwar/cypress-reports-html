@@ -45,39 +45,32 @@ jobs:
       - name: List content of the directory
         run: ls -al cypress/reports/html
 
-      - name: Checkout Source Repository
-        uses: actions/checkout@v2
+      - name: Push generated webpage to another repository
+        uses: nkoppel/push-files-to-another-repository@1.1.0
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          repository: rpaidalwar/cypress-reports-html
-          persist-credentials: false
-          fetch-depth: 0
-
-      - name: Setup SSH Key
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - name: Set up Git
-        run: |
-          git config --global user.name rpaidalwar
-          git config --global user.email "${{ secrets.REPO_B_EMAIL }}" 
-
+          source-files: 'cypress/reports/html/Ts-cypress_report.html'
+          destination-username: 'rpaidalwar'
+          destination-repository: 'https://github.com/rpaidalwar/html.git'
+          destination-directory: '.'
+          commit-email: 'rpaidalwar2@gmail.com'
+    
       # - name: Commit and Push to Repository B
       #   run: |
       #     cp cypress/reports/html/Ts-cypress_report.html $GITHUB_WORKSPACE/Ts-cypress_report.html
       #     git add Ts-cypress_report.html
       #     git commit -m "Update HTML file"
       #     git push https://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@github.com/rpaidalwar/html.git HEAD:main
-      - name: Commit and Push to Repository B
-        run: |
-          cp cypress/reports/html/Ts-cypress_report.html $GITHUB_WORKSPACE/Ts-cypress_report.html
-          git add Ts-cypress_report.html
-          git commit -m "Update HTML file"
-          git remote remove origin
-          git remote add origin git@github.com:rpaidalwar/html.git
-          # git remote add origin https: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@github.com/rpaidalwar/html.git
-          git push origin HEAD:main
+      # - name: Commit and Push to Repository B
+      #   run: |
+      #     cp cypress/reports/html/Ts-cypress_report.html $GITHUB_WORKSPACE/Ts-cypress_report.html
+      #     git add Ts-cypress_report.html
+      #     git commit -m "Update HTML file"
+      #     git remote remove origin
+      #     git remote add origin git@github.com:rpaidalwar/html.git
+      #     # git remote add origin https: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@github.com/rpaidalwar/html.git
+      #     git push origin HEAD:main
       # - name: Parse Cypress results
       #   run: |
       #     # Assuming your Cypress JSON report is located at cypress/reports/json/.json
