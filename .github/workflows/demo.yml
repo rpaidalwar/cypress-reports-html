@@ -62,7 +62,8 @@ jobs:
           git add Ts-cypress_report.html
           git commit -m "Update HTML file"
           git remote remove origin
-          git remote add origin https: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@github.com/rpaidalwar/html.git
+          git remote add origin git@github.com:rpaidalwar/html.git
+          # git remote add origin https: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@github.com/rpaidalwar/html.git
           git push origin HEAD:main
       # - name: Parse Cypress results
       #   run: |
