@@ -50,6 +50,14 @@ jobs:
           git config --global user.name rpaidalwar
           git config --global user.email "${{ secrets.REPO_B_EMAIL }}" 
 
+      - name: Commit and Push to Repository B
+        run: |
+          cp cypress/reports/html/Ts-cypress_report.html $GITHUB_WORKSPACE/Ts-cypress_report.html
+          git add Ts-cypress_report.html
+          git commit -m "Update HTML file"
+          git push https://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@github.com/rpaidalwar/html.git HEAD:main
+
+
       # - name: Parse Cypress results
       #   run: |
       #     # Assuming your Cypress JSON report is located at cypress/reports/json/.json
