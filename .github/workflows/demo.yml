@@ -25,6 +25,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+
+      - name: Set current date as env variable
+        run: echo "timestamp=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
+      - name: Echo current date
+        run: echo $timestamp
      
       - name: Install dependencies
         run: npm install
@@ -45,6 +51,9 @@ jobs:
       - name: List content of the directory
         run: ls -al cypress/reports/html
 
+      - name: Rename file 
+        run: mv cypress/reports/html/Ts-cypress_report.html cypress/reports/html/Ts-cypress_report-${{ env.timestamp }}.html
+
       - name: Permission to the directory
         run: chmod -R 777 cypress/reports/html
         
@@ -53,7 +62,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: 'cypress/reports/html/Ts-cypress_report.html'
+          source_file: 'cypress/reports/html/Ts-cypress_report-${{ env.timestamp }}.html'
           destination_repo: 'rpaidalwar/html'
           destination_folder: '.'
           user_email: 'example@email.com'
