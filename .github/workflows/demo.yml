@@ -1,4 +1,4 @@
-name: Generate Cypress Report 
+name: Generate Cypress Report  
 on:
   push
   # workflow_dispatch:
