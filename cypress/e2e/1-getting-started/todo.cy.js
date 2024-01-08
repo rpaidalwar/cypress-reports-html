@@ -118,7 +118,7 @@ describe('example to-do app', () => {
         .first()
         .should('have.text', 'Pay electric bill')
 
-      cy.contains('Walk the dog').should('not.exist')
+      cy.contains('Walk the dogs').should('not.exist')
     })
 
     it('can delete all completed tasks', () => {
