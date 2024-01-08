@@ -55,7 +55,7 @@ jobs:
         with:
           source_file: 'cypress/reports/html/Ts-cypress_report.html'
           destination_repo: 'rpaidalwar/html'
-          destination_folder: './README.md'
+          destination_folder: '.'
           user_email: 'example@email.com'
           user_name: 'dmnemec'
           commit_message: 'A custom message for the commit'
